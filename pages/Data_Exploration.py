@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
-df = pd.read_csv(os.path.join("data", "dataset.csv"))
+df = pd.read_csv(os.path.join("data", "diabetes.csv"))
 
 st.header("📊 Data Exploration")
 st.write("### Dataset Overview")

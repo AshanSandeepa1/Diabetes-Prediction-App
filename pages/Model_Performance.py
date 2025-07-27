@@ -6,7 +6,7 @@ import pandas as pd
 import os
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc
 
-df = pd.read_csv(os.path.join("data", "dataset.csv"))
+df = pd.read_csv(os.path.join("data", "diabetes.csv"))
 model = joblib.load("model.pkl")
 
 X = df.drop("Outcome", axis=1)
