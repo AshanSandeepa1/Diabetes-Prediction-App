@@ -6,34 +6,52 @@ import pandas as pd
 import os
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc
 
-df = pd.read_csv(os.path.join("data", "diabetes.csv"))
-model = joblib.load("model.pkl")
-
-X = df.drop("Outcome", axis=1)
-y = df["Outcome"]
-y_pred = model.predict(X)
-y_prob = model.predict_proba(X)[:, 1]
-
 st.header("📉 Model Performance")
 
-st.subheader("Confusion Matrix")
-cm = confusion_matrix(y, y_pred)
-fig, ax = plt.subplots()
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
-st.pyplot(fig)
+# --- Load model, scaler, and columns
+model = joblib.load("data/best_logistic_model.pkl")
+scaler = joblib.load("data/scaler.pkl")
+columns = joblib.load("data/columns.pkl")
 
-st.subheader("Classification Report")
-report = classification_report(y, y_pred, output_dict=True)
-st.dataframe(pd.DataFrame(report).transpose())
+# --- Load X_test and y_test
+X_test = pd.read_pickle("data/X_test.pkl")
+y_test = pd.read_pickle("data/y_test.pkl")
 
-st.subheader("ROC Curve")
-fpr, tpr, _ = roc_curve(y, y_prob)
+# --- Ensure correct column order
+X_test = X_test[[col for col in columns if col != "Outcome"]]
+
+
+# --- Scale X_test
+X_test_scaled = scaler.transform(X_test)
+
+# --- Predict
+y_pred = model.predict(X_test_scaled)
+y_prob = model.predict_proba(X_test_scaled)[:, 1]
+
+# --- Confusion Matrix
+st.subheader("🔍 Confusion Matrix")
+cm = confusion_matrix(y_test, y_pred)
+fig_cm, ax_cm = plt.subplots()
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax_cm)
+ax_cm.set_xlabel('Predicted')
+ax_cm.set_ylabel('Actual')
+st.pyplot(fig_cm)
+
+# --- Classification Report
+st.subheader("📋 Classification Report")
+report = classification_report(y_test, y_pred, output_dict=True)
+report_df = pd.DataFrame(report).transpose()
+st.dataframe(report_df.style.format({"precision": "{:.2f}", "recall": "{:.2f}", "f1-score": "{:.2f}", "support": "{:.0f}"}))
+
+# --- ROC Curve
+st.subheader("📈 ROC Curve")
+fpr, tpr, _ = roc_curve(y_test, y_prob)
 roc_auc = auc(fpr, tpr)
-fig2, ax2 = plt.subplots()
-ax2.plot(fpr, tpr, label=f'AUC = {roc_auc:.2f}')
-ax2.plot([0, 1], [0, 1], linestyle='--')
-ax2.set_xlabel('False Positive Rate')
-ax2.set_ylabel('True Positive Rate')
-ax2.set_title('ROC Curve')
-ax2.legend()
-st.pyplot(fig2)
+fig_roc, ax_roc = plt.subplots()
+ax_roc.plot(fpr, tpr, label=f"AUC = {roc_auc:.2f}")
+ax_roc.plot([0, 1], [0, 1], linestyle="--")
+ax_roc.set_xlabel("False Positive Rate")
+ax_roc.set_ylabel("True Positive Rate")
+ax_roc.set_title("ROC Curve")
+ax_roc.legend()
+st.pyplot(fig_roc)
