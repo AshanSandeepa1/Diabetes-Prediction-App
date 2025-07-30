@@ -1,7 +1,8 @@
 # app.py
 import streamlit as st
 from streamlit_lottie import st_lottie
-import requests
+import json
+import os
 
 # ---------------------- Config ---------------------- #
 st.set_page_config(
@@ -10,22 +11,12 @@ st.set_page_config(
     page_icon="🧠"
 )
 
-# ---------------------- Sidebar ---------------------- #
-st.sidebar.image(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Blue_circle_for_diabetes.svg/768px-Blue_circle_for_diabetes.svg.png",
-    width=100,
-)
-st.sidebar.title("Navigation")
-st.sidebar.markdown("🔹 Use the pages on the left to explore:")
+# ---------------------- Load Local Lottie ---------------------- #
+def load_lottie_file(filepath: str):
+    with open(filepath, "r") as f:
+        return json.load(f)
 
-# ---------------------- Lottie Animation ---------------------- #
-def load_lottie_url(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-lottie_diabetes = load_lottie_url("https://assets9.lottiefiles.com/packages/lf20_yr6zz3wv.json")
+lottie_diabetes = load_lottie_file("assets/blood_pressure.json")
 
 # ---------------------- Main Area ---------------------- #
 st.title("🧠 Diabetes Prediction System")
@@ -41,13 +32,13 @@ This application helps you:
 Use the sidebar to navigate through the app.
 """)
 
-# Add animation
+# Display Lottie animation
 if lottie_diabetes:
     st_lottie(lottie_diabetes, height=300)
 
 # Footer
 st.markdown("---")
 st.markdown(
-    "<center><small>Built with ❤️ using Streamlit, Scikit-learn & Python</small></center>",
+    "<center><small>Built with ❤️ using Streamlit, Scikit-learn & Python @ 2025 Ashan Sandeepa</small></center>",
     unsafe_allow_html=True
 )
