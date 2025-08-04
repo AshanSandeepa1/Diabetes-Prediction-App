@@ -5,13 +5,12 @@ import pandas as pd
 import os
 import plotly.express as px
 
-# ---------------------- Page Config ---------------------- #
 st.set_page_config(page_title="Visualizations", layout="wide", page_icon="📊")
 
-# ---------------------- Load Dataset ---------------------- #
+# Load Dataset
 df = pd.read_csv(os.path.join("data", "diabetes.csv"))
 
-# ---------------------- Sidebar Filters ---------------------- #
+# Sidebar Filters
 st.sidebar.header("📊 Visualization Filters")
 
 
@@ -93,7 +92,7 @@ with st.expander("📦 Select Feature for Boxplot by Outcome", expanded=True):
     )
     st.plotly_chart(fig5, use_container_width=True)
 
-# ---------------------- Notes ---------------------- #
+# Notes
 st.markdown("---")
 st.info("You can interact with charts by zooming, hovering, or filtering using the sidebar.")
 

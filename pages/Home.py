@@ -2,27 +2,22 @@ import streamlit as st
 from streamlit_lottie import st_lottie
 import json
 
-# ------------------------------
 # Page Configuration
-# ------------------------------
 st.set_page_config(
     page_title="Diabetes Prediction System",
     layout="wide",
     page_icon="🧠"
 )
 
-# ------------------------------
 # Load Lottie Animation
-# ------------------------------
 def load_lottie_file(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
 lottie_diabetes = load_lottie_file("assets/blood_pressure.json")
 
-# ------------------------------
+
 # Hero Section
-# ------------------------------
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(
     """
@@ -42,9 +37,8 @@ with col2:
 
 st.markdown("---")
 
-# ------------------------------
+
 # What is This App?
-# ------------------------------
 st.markdown("## 🤖 What is This App?")
 st.markdown("""
 This web application helps users **predict the likelihood of diabetes** using a machine learning model trained on the **PIMA Indian Diabetes dataset**.
@@ -52,9 +46,8 @@ This web application helps users **predict the likelihood of diabetes** using a 
 It combines **data analysis**, **interactive visualizations**, and **predictive modeling** to assist both patients and researchers in understanding diabetic risk factors.
 """)
 
-# ------------------------------
+
 # How to Use This App
-# ------------------------------
 st.markdown("## 🧭 How to Use This App")
 
 st.markdown("""
@@ -100,9 +93,8 @@ with st.expander("📘 Click to View Step-by-Step Guide", expanded=False):
 
 st.info("🔒 All data is anonymized and used solely for demonstration purposes.")
 
-# ------------------------------
+
 # Features
-# ------------------------------
 st.markdown("## 🌟 Key Features")
 
 col1, col2 = st.columns(2)
@@ -125,9 +117,8 @@ with col2:
     - Built with Python, Streamlit, and Scikit-learn
     """)
 
-# ------------------------------
+
 # Medical Disclaimer
-# ------------------------------
 with st.expander("⚠️ Medical Disclaimer"):
     st.write("""
     This app is intended for **educational and informational** purposes only.  
@@ -135,9 +126,7 @@ with st.expander("⚠️ Medical Disclaimer"):
     Always consult a qualified healthcare provider regarding medical concerns.
     """)
 
-# ------------------------------
 # Footer
-# ------------------------------
 st.markdown("---")
 st.markdown(
     "<center><small>Built with ❤️ using Streamlit & Python • 2025 © Ashan Sandeepa</small></center>",

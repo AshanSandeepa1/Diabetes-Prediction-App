@@ -99,7 +99,7 @@ st.pyplot(fig_roc)
 st.markdown("---")
 st.subheader("🔎 Model Comparison")
 
-# Predefined model metrics from your training results
+# Predefined model metrics from training results in notebook
 model_metrics = {
     "Logistic Regression": {
         "Accuracy": 0.7907,
