@@ -27,6 +27,7 @@ Visit the deployed app here:
 
 ## How to Run Locally
 
+# Method 1
 1. Clone the Repository
    git clone https://github.com/AshanSandeepa1/Diabetes-Prediction-App.git
    cd your-repo-name
@@ -41,11 +42,23 @@ Visit the deployed app here:
 4. Run the App
    streamlit run app.py
 
+# Method 2 - Using Docker
+1. Clone the Repository
+   git clone https://github.com/AshanSandeepa1/Diabetes-Prediction-App.git
+   cd your-repo-name
+
+2. Open the project root directory in CLI.
+   
+4. Make sure Docker is installed in your machine.
+   
+6. Run the App
+   docker-compose up --build
+
 
 ## Project Structure
 
 your-project/
-├── app.py
+├── app.py 
 ├── requirements.txt
 ├── model.pkl
 ├── assets/
@@ -64,4 +77,5 @@ your-project/
 
 ## License
 This project is open-source and available under the MIT License.
+
 
