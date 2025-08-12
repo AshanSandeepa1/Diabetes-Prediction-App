@@ -9,7 +9,7 @@ model = joblib.load("model.pkl")
 scaler = joblib.load("data/scaler.pkl")
 columns = joblib.load("data/columns.pkl")
 
-st.header("🤖 Diabetes Prediction")
+st.header("Diabetes Prediction")
 st.markdown("Provide patient data to predict the likelihood of diabetes.")
 
 # Preset example inputs

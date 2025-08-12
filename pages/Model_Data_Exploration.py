@@ -70,7 +70,7 @@ filtered_df = df[
 ]
 
 # ---------------------- Page Body ---------------------- #
-st.header("📊 Data Exploration")
+st.header("Data Exploration")
 st.markdown("Use the filter panel to explore and analyze the diabetes dataset interactively.")
 
 col1, col2 = st.columns(2)
@@ -82,7 +82,7 @@ with col2:
     st.dataframe(df.dtypes.rename("Type"))
 
 # -------------- Sample Section --------------- #
-st.subheader("📌 Sample Records (10 Random Rows)")
+st.subheader("Sample Records (10 Random Rows)")
 if "sample_data" not in st.session_state:
     st.session_state.sample_data = df.sample(10, random_state=42)
 if st.button("🔄 Shuffle Sample"):
@@ -90,7 +90,7 @@ if st.button("🔄 Shuffle Sample"):
 st.dataframe(st.session_state.sample_data)
 
 # -------------- Filtered Data Section --------------- #
-st.subheader("🧮 Filtered Data View")
+st.subheader("Filtered Data View")
 st.dataframe(filtered_df, use_container_width=True)
 
 with st.expander("📊 Show Descriptive Statistics for Filtered Data"):

@@ -11,8 +11,7 @@ st.set_page_config(page_title="Visualizations", layout="wide", page_icon="📊")
 df = pd.read_csv(os.path.join("data", "diabetes.csv"))
 
 # Sidebar Filters
-st.sidebar.header("📊 Visualization Filters")
-
+st.sidebar.header("Visualization Filters")
 
 outcome_filter = st.sidebar.multiselect(
     "Filter by Diabetes Outcome",
@@ -22,15 +21,15 @@ outcome_filter = st.sidebar.multiselect(
 
 st.sidebar.markdown("### Outcome Legend")
 st.sidebar.markdown("""
-- `1`: 🔴 Diabetes
-- `0`: 🟢 No Diabetes  
+- `1`:  Diabetes
+- `0`:  No Diabetes  
 """)
 
 # Apply filter
 filtered_df = df[df["Outcome"].isin(outcome_filter)]
 
 # ---------------------- Main Page ---------------------- #
-st.header("📈 Data Visualizations")
+st.header("Data Visualizations")
 st.markdown("""
 Visualize key relationships and distributions within the diabetes dataset.
 Use the sidebar to filter visualizations based on diabetes outcome.
@@ -38,6 +37,10 @@ Use the sidebar to filter visualizations based on diabetes outcome.
 
 # ---------------------- Glucose Histogram ---------------------- #
 with st.expander("🔍 Glucose Distribution by Outcome", expanded=True):
+    st.markdown("""
+    This histogram shows how glucose levels vary among people with and without diabetes.
+    Higher glucose levels are typically associated with diabetes risk.
+    """)
     fig1 = px.histogram(
         filtered_df,
         x="Glucose",
@@ -50,7 +53,11 @@ with st.expander("🔍 Glucose Distribution by Outcome", expanded=True):
     st.plotly_chart(fig1, use_container_width=True)
 
 # ---------------------- BMI Box Plot ---------------------- #
-with st.expander("📦 BMI Distribution by Outcome", expanded=False):
+with st.expander("🔍 BMI Distribution by Outcome", expanded=False):
+    st.markdown("""
+    This box plot compares the Body Mass Index (BMI) of diabetic and non-diabetic groups.
+    BMI is a common indicator of body fat that affects diabetes risk.
+    """)
     fig2 = px.box(
         filtered_df,
         y="BMI",
@@ -61,13 +68,22 @@ with st.expander("📦 BMI Distribution by Outcome", expanded=False):
     st.plotly_chart(fig2, use_container_width=True)
 
 # ---------------------- Correlation Heatmap ---------------------- #
-with st.expander("🧮 Correlation Heatmap (All Variables)", expanded=False):
+with st.expander("🔍 Correlation Heatmap (All Variables)", expanded=False):
+    st.markdown("""
+    This heatmap shows how different health variables relate to each other.
+    Values closer to 1 or -1 indicate strong positive or negative relationships.
+    For example, glucose and diabetes outcome have a strong positive correlation.
+    """)
     fig3, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(filtered_df.corr(), annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
     st.pyplot(fig3)
 
 # ---------------------- Optional Pair Plot ---------------------- #
-with st.expander("🔗 Pairwise Relationships (Glucose, BMI, Age, Outcome)", expanded=False):
+with st.expander("🔍 Pairwise Relationships (Glucose, BMI, Age, Outcome)", expanded=False):
+    st.markdown("""
+    This scatter matrix shows how glucose, BMI, and age relate to each other, separated by diabetes status.
+    It helps identify patterns or clusters linked to diabetes risk.
+    """)
     selected_cols = ["Glucose", "BMI", "Age", "Outcome"]
     fig4 = px.scatter_matrix(
         filtered_df[selected_cols],
@@ -78,7 +94,11 @@ with st.expander("🔗 Pairwise Relationships (Glucose, BMI, Age, Outcome)", exp
     st.plotly_chart(fig4, use_container_width=True)
 
 # ---------------------- Dynamic Boxplot Selector ---------------------- #
-with st.expander("📦 Select Feature for Boxplot by Outcome", expanded=True):
+with st.expander("🔍 Select Feature for Boxplot by Outcome", expanded=True):
+    st.markdown("""
+    Choose any numeric health feature below to see how its values differ between diabetic and non-diabetic groups.
+    This helps understand which health metrics vary significantly with diabetes.
+    """)
     numeric_cols = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
     selected_feature = st.selectbox("Select Numeric Feature", options=numeric_cols)
 

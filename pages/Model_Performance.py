@@ -12,12 +12,12 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Model Performance", page_icon="📉")
 
-st.header("📉 Model Performance")
+st.header("Model Performance")
 
 
 # ------------------ Explanation ------------------ #
 st.markdown("---")
-st.subheader("💡 Explanation")
+st.subheader("Explanation")
 
 st.markdown("""
 This page presents a detailed evaluation of the diabetes prediction models we have trained and tested. You will find:
@@ -59,10 +59,10 @@ X_test_scaled = scaler.transform(X_test)
 y_pred = model.predict(X_test_scaled)
 y_prob = model.predict_proba(X_test_scaled)[:, 1]
 
-st.markdown("## 🧮 Logistic Regression Model Performance")
+st.markdown("## Logistic Regression Model Performance")
 
 # --- Confusion Matrix ---
-st.subheader("🔍 Confusion Matrix")
+st.subheader("Confusion Matrix")
 cm = confusion_matrix(y_test, y_pred)
 fig_cm, ax_cm = plt.subplots()
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax_cm)
@@ -71,7 +71,7 @@ ax_cm.set_ylabel('Actual')
 st.pyplot(fig_cm)
 
 # --- Classification Report ---
-st.subheader("📋 Classification Report")
+st.subheader("Classification Report")
 report = classification_report(y_test, y_pred, output_dict=True)
 report_df = pd.DataFrame(report).transpose()
 st.dataframe(report_df.style.format({
@@ -82,7 +82,7 @@ st.dataframe(report_df.style.format({
 }))
 
 # --- ROC Curve ---
-st.subheader("📈 ROC Curve")
+st.subheader("ROC Curve")
 fpr, tpr, _ = roc_curve(y_test, y_prob)
 roc_auc = auc(fpr, tpr)
 fig_roc, ax_roc = plt.subplots()
@@ -97,7 +97,7 @@ st.pyplot(fig_roc)
 
 # ------------------ Model Comparison Section ------------------ #
 st.markdown("---")
-st.subheader("🔎 Model Comparison")
+st.subheader("Model Comparison")
 
 # Predefined model metrics from training results in notebook
 model_metrics = {
@@ -128,7 +128,7 @@ metrics_df = pd.DataFrame(model_metrics).T.reset_index().rename(columns={"index"
 metrics_df = metrics_df.sort_values(by="F1-Score", ascending=False).reset_index(drop=True)
 
 # Show metrics as table
-st.markdown("### 📊 Performance Metrics Table")
+st.markdown("### Performance Metrics Table")
 st.dataframe(
     metrics_df.style.format(
         {col: "{:.4f}" for col in metrics_df.columns if col != "Model"}
@@ -141,7 +141,7 @@ best_model = metrics_df.iloc[0]
 st.success(f"⭐ **Best Model: {best_model['Model']}** with F1-Score = {best_model['F1-Score']:.4f}")
 
 # ------------------ Bar Chart ------------------ #
-st.markdown("### 📉 Comparison of Metrics")
+st.markdown("### Comparison of Metrics")
 
 fig_bar = px.bar(
     metrics_df.melt(id_vars="Model"),
@@ -156,7 +156,7 @@ fig_bar.update_layout(yaxis=dict(range=[0,1]))
 st.plotly_chart(fig_bar, use_container_width=True)
 
 # ------------------ Radar Chart ------------------ #
-st.markdown("### 🎯 Radar Chart for Model Metrics")
+st.markdown("### Radar Chart for Model Metrics")
 
 categories = ["Accuracy", "Precision", "Recall", "F1-Score"]
 fig_radar = go.Figure()

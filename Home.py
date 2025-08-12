@@ -39,7 +39,7 @@ st.markdown("---")
 
 
 # What is This App?
-st.markdown("## 🤖 What is This App?")
+st.markdown("## What is This App?")
 st.markdown("""
 This web application helps users **predict the likelihood of diabetes** using a machine learning model trained on the **PIMA Indian Diabetes dataset**.
 
@@ -48,7 +48,7 @@ It combines **data analysis**, **interactive visualizations**, and **predictive 
 
 
 # How to Use This App
-st.markdown("## 🧭 How to Use This App")
+st.markdown("## How to Use This App")
 
 st.markdown("""
 You can explore different sections from the **left sidebar**:
@@ -95,7 +95,7 @@ st.info("🔒 All data is anonymized and used solely for demonstration purposes.
 
 
 # Features
-st.markdown("## 🌟 Key Features")
+st.markdown("## Key Features")
 
 col1, col2 = st.columns(2)
 
