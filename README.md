@@ -57,7 +57,7 @@ Visit the deployed app here:
 
 ## Project Structure
 
-your-project/
+Diabetes-Prediction-App/
 ├── app.py 
 ├── requirements.txt
 ├── model.pkl
@@ -77,6 +77,7 @@ your-project/
 
 ## License
 This project is open-source and available under the MIT License.
+
 
 
 
